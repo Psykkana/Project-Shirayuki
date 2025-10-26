@@ -21,4 +21,12 @@ current features:
 **Project-Shirayuki**
 GUI-based supermarket simulator
 Successor to [Project-Gotland](https://github.com/Psykkana/Project-Gotland)
+
 Heavily based on the code from https://github.com/learncodebygaming/java_2d_game
+
+## **How to use** ##
+
+> Download the .java files
+> Compile the .java files with javac in the command prompt
+> Run the Driver file with java in the command prompt
+> Move around with W, A, S, D
