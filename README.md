@@ -10,6 +10,7 @@
 </div>
 
 current build: build 0.1
+
 current features:
 1. Basic GUI (Swing & JFrame)
 2. User avatar (spawns at x = 11 y = 21)
