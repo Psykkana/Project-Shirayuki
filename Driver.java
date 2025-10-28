@@ -1,3 +1,5 @@
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.*;
 
 /*
@@ -5,15 +7,25 @@ import javax.swing.*;
  *      Basis for the MC02
  *      The GUI based supermarket simulator
  *      2D system using JFrames
+ * 
+ *  Major Sources:
+ *      [1] https://github.com/learncodebygaming/java_2d_game/tree/master
+ * 
+ * 
  */
 
 class Driver {
 
     private static void initializeWindow() {
+
         // Create window frame with title at toolbar
-        JFrame window = new JFrame("Project Shirayuki");
+        JFrame window = new JFrame("Project Shirayuki b0.2");
         // Close app upon pressing exit button        
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set window icon
+        Image icon = Toolkit.getDefaultToolkit().getImage("assets/icon.png");
+        window.setIconImage(icon);
 
         // Create the jpanel to draw on
         // also initialize the game loop

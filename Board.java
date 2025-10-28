@@ -1,21 +1,42 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.TileObserver;
-import java.util.ArrayList;
-import java.util.Random;        // Might not use
-import javax.swing.Timer;
+
 import javax.swing.*;
 
+/*
+ *      The Board Class
+ *          The view part of the MVC design model
+ *          
+ * 
+ */
 
 public class Board extends JPanel implements ActionListener, KeyListener{
+
+    public enum TileType{
+        FLOOR,
+        WALL, 
+        STAIRS, 
+        COUNTER, 
+        BASKETS, 
+        CARTS,
+        TABLE, 
+        CHILLEDCOUNTER, 
+        REFRIGERATOR, 
+        SHELF
+    }
 
     // Tick delay controller (in ms)
     private final int DELAY = 25;
 
     // Size of the Board
-    public static final int TILE_SIZE = 30;
+    public static final int TILE_SIZE = 40;
     public static final int X_AXIS_SIZE = 22;
-    public static final int Y_AXIS_SIZE = 22;
+    public static final int Y_AXIS_SIZE = 22; 
+    public static final int FLOORS = 2;         // Specs only need 2 floors   
+
+    // Floor tile map
+    // [floors][yAxis][xAxis]
+    public static TileType[][][] map = new TileType[FLOORS][Y_AXIS_SIZE][X_AXIS_SIZE];
 
     // Suppresses serialization warning
     private static final long serialVersionUID = 490905409104883233L;
@@ -33,6 +54,15 @@ public class Board extends JPanel implements ActionListener, KeyListener{
 
         // Set board background color
         setBackground(new Color(163, 246, 48));
+
+        // Set up the floors and grids
+        for (int fLevel = 0; fLevel < FLOORS; fLevel++) {
+            for (int yAxis = 0; yAxis < Y_AXIS_SIZE; yAxis++) {
+                for (int xAxis = 0; xAxis < X_AXIS_SIZE; xAxis++) {
+                    map[fLevel][yAxis][xAxis] = TileType.FLOOR;     // Set every grid on each level to floor at first
+                }
+            }
+        }
 
         // Initialize game state
         player = new Player();
@@ -57,6 +87,8 @@ public class Board extends JPanel implements ActionListener, KeyListener{
     
     @Override
     public void paintComponent(Graphics g) {
+        // Any additions to the floors are done here
+
         super.paintComponent(g);
         // When calling g.drawImage() we can use "this" for the ImageObserver
         // Component implments the ImageObserver interface and JPanel
@@ -65,6 +97,8 @@ public class Board extends JPanel implements ActionListener, KeyListener{
         // events triggered by g.drawImage()
 
         drawBackground(g);
+        drawBorders(g);
+        drawText(g);
 
         player.draw(g, this);
 
@@ -88,6 +122,21 @@ public class Board extends JPanel implements ActionListener, KeyListener{
         // React to key up events
     }
 
+    public void drawBorders(Graphics g) {
+        g.setColor(new Color(68, 83, 106));
+        
+        // Loop to set the edge tiles as walls
+        for (int fLevel = 0; fLevel < FLOORS; fLevel++) {
+            for (int yAxis = 0; yAxis < Y_AXIS_SIZE; yAxis++) {
+                for (int xAxis = 0; xAxis < X_AXIS_SIZE; xAxis++) {
+                    if (yAxis == 0 || xAxis == 0 || yAxis == Y_AXIS_SIZE - 1 || xAxis == X_AXIS_SIZE - 1) {
+                        map[fLevel][yAxis][xAxis] = TileType.WALL;  
+                    }
+                }
+            }
+        }
+    }
+
     public void drawBackground(Graphics g) {
         // Draw a checkered background
         g.setColor(new Color(218, 255, 169));
@@ -106,7 +155,7 @@ public class Board extends JPanel implements ActionListener, KeyListener{
 
     private void drawText(Graphics g) {
         // Set text to be displayed
-        String text = "Project Shirayuki";
+        String text = "Project Shirayuki build 0.2";
 
         // Cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
@@ -117,7 +166,7 @@ public class Board extends JPanel implements ActionListener, KeyListener{
 
         // Set text color and font
         g2d.setColor(new Color(255, 0, 0));
-        g2d.setFont(new Font("Lato", Font.PLAIN, 25));
+        g2d.setFont(new Font("Verdana", Font.PLAIN, 25));
 
         // Draw text on the bottom center of the screen
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
