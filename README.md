@@ -20,13 +20,13 @@ current features:
 6. Smooth Rendering / Animation Sync
 
 **Project-Shirayuki**
-GUI-based supermarket simulator
-Successor to [Project-Gotland](https://github.com/Psykkana/Project-Gotland)
-
-Heavily based on the code from https://github.com/learncodebygaming/java_2d_game
+<p>GUI-based supermarket simulator</p>
+<p>Successor to [Project-Gotland](https://github.com/Psykkana/Project-Gotland)</p>
+<p>Heavily based on the code from https://github.com/learncodebygaming/java_2d_game</p>
 
 ## **How to use** ##
 1. Download the .java files + the assets folder
 2. Compile the .java files with javac in the command prompt
 3. Run the Driver file with java in the command prompt
 4. Move around with W, A, S, D
+5. Look around with I, J, K, L
