@@ -17,7 +17,7 @@ import javax.swing.*;       // Stuff like JPanel and timer
 public class Board extends JPanel {
 
     // Size of each tile on the board (in pixels)
-    public static final int TILE_SIZE = 30;
+    public static final int TILE_SIZE = 40;
     public static final int X_AXIS_SIZE = 22;
     public static final int Y_AXIS_SIZE = 22;
 
