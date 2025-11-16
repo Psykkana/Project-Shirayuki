@@ -1,5 +1,3 @@
-import java.awt.Image;
-import java.awt.Toolkit;
 import javax.swing.*;
 
 /*
@@ -7,38 +5,47 @@ import javax.swing.*;
  *      Basis for the MC02
  *      The GUI based supermarket simulator
  *      2D system using JFrames
- * 
- *  Major Sources:
- *      [1] https://github.com/learncodebygaming/java_2d_game/tree/master
- * 
- * 
  */
+
+
+ /*
+  *     The Driver Class 
+  *         Handles the JFrame window and its properties
+  *         Also initalizes and handles the simulation
+  *
+  */
 
 class Driver {
 
     private static void initializeWindow() {
 
+        // Constant location for Spawn
+        final int spawnX = 11;
+        final int spawnY = 21;
+
+        // Create Model
+        Player player = new Player(spawnX, spawnY);
+
+        // Create View
+        Board board = new Board(player);
+
+        // Create Controller
+        inputHandler controller = new inputHandler(player, board);
+
         // Create window frame with title at toolbar
-        JFrame window = new JFrame("Project Shirayuki b0.2");
+        JFrame window = new JFrame("Project Shirayuki");
         // Close app upon pressing exit button        
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Set window icon
-        Image icon = Toolkit.getDefaultToolkit().getImage("assets/icon.png");
-        window.setIconImage(icon);
-
-        // Create the jpanel to draw on
-        // also initialize the game loop
-        Board board = new Board();
 
         // Add the JPanel to the window
         window.add(board);
 
-        // Pass keyboard inputs to JPanel
-        window.addKeyListener(board);
-
         // Disallow resizing of the window
         window.setResizable(false);
+
+        // Set app icon
+        ImageIcon image = new ImageIcon("images/player.png");    // create image icon
+        window.setIconImage(image.getImage());    // change icon of frame
 
         // pack() fits window size around components (just the JPanel)
         // pack() should be called after setResizable() to avoid issues on some platforms
