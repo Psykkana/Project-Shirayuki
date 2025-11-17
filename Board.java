@@ -17,7 +17,7 @@ import javax.swing.*;       // Stuff like JPanel and timer
 public class Board extends JPanel {
 
     // Size of each tile on the board (in pixels)
-    public static final int TILE_SIZE = 40;
+    public static final int TILE_SIZE = 35;
     public static final int X_AXIS_SIZE = 22;
     public static final int Y_AXIS_SIZE = 22;
 
@@ -28,6 +28,9 @@ public class Board extends JPanel {
     private BufferedImage playerChar;
     // Objects that appear in the game board
     private Player player;
+
+    // The Floors
+    private int currentFloor = 1;
 
     // Store arraylist of objects
     private ArrayList<gameObject> objects;
@@ -64,6 +67,11 @@ public class Board extends JPanel {
         return objects;
     }
 
+    public void changeFloor(int floor) {
+        currentFloor = floor;
+        repaint();
+    }
+
     private void loadImages() {
         try {
             playerChar = ImageIO.read(new File("assets/player_up.png"));
@@ -77,19 +85,24 @@ public class Board extends JPanel {
         // Use this to call the methods that build and fill up the grid
 
         super.paintComponent(g);        // Clears the screen first
-        // When calling g.drawImage() we can use "this" for the ImageObserver
-        // Component implments the ImageObserver interface and JPanel
-        // extends from Component
-        // "this" Board instance as a component can react to imageUpdate()
-        // events triggered by g.drawImage()
 
-        drawBackground(g);      // Draws the tiles
+        drawBackground(g);      // Draws the background tiles
         drawText(g);           // Draws the text
 
+        // Draw the current floor with their corresponding assets
+        for (gameObject obj : objects) {
+            if (obj.getFloor() == currentFloor) {
+                obj.draw(g);
+            }
+        }
+
         // Draw player based on position
-        Point pos = player.getPos();
-        playerChar = player.getCurrentSprite();;
-        g.drawImage(playerChar, pos.x * TILE_SIZE, pos.y * TILE_SIZE, this);   // Draws the player character
+        if (player.getCurrentFloor() == currentFloor) {
+            Point pos = player.getPos();
+            playerChar = player.getCurrentSprite();;
+            g.drawImage(playerChar, pos.x * TILE_SIZE, pos.y * TILE_SIZE, this);   // Draws the player character
+
+        }
 
         // Smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
@@ -113,7 +126,7 @@ public class Board extends JPanel {
 
     private void drawText(Graphics g) {
         // Set text to be displayed
-        String text = "Project Shirayuki";
+        String text = "Project Shirayuki b0.3";
 
         // Cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;

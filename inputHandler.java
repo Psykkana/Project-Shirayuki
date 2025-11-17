@@ -37,16 +37,24 @@ public class inputHandler implements KeyListener{
         switch (key) {
             // Movement Inputs
             case KeyEvent.VK_W:             // Move up 1 tile
-                player.moveUp();                    
+                if (checkCollisions(Player.Direction.UP)) {
+                    player.moveUp();                      
+                }  
                 break;
             case KeyEvent.VK_S:             // Move down 1 tile
-                player.moveDown();;
+                if (checkCollisions(Player.Direction.DOWN)) {
+                    player.moveDown();                      
+                }            
                 break;
             case KeyEvent.VK_A:             // Move left 1 tile
-                player.moveLeft();
+                if (checkCollisions(Player.Direction.LEFT)) {
+                    player.moveLeft();                      
+                }
                 break;
             case KeyEvent.VK_D:             // Move right 1 tile
-                player.moveRight();
+                if (checkCollisions(Player.Direction.RIGHT)) {
+                    player.moveRight();                      
+                }
                 break;
 
             // Vision inputs (Direction)

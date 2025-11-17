@@ -54,6 +54,9 @@ class Driver {
         // Open window in the center of the screen
         window.setLocationRelativeTo(null);
 
+        // Initialize the assets to be loaded in
+        assetInitializer.intializeFloorOne(board);
+
         // Display the window
         window.setVisible(true);
 

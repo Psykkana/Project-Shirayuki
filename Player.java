@@ -128,6 +128,14 @@ public class Player {
         return facing;
     }
 
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public int setFloor(int targetFloor) {
+        return currentFloor = targetFloor;
+    }
+    
     // Get the current direction sprite of the player
     public BufferedImage getCurrentSprite() {
         switch (facing) {

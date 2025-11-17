@@ -14,13 +14,17 @@ public abstract class gameObject {
     protected int posX;
     protected int posY;
 
+    // Floor of the object
+    protected int floor;
+
     // Flag for passability (primarily for walls)
     protected boolean solid;
 
-    public gameObject(int posX, int posY, boolean solid) {
+    public gameObject(int posX, int posY, boolean solid, int floor) {
         this.posX = posX;
         this.posY = posY;
         this.solid = solid;
+        this.floor = floor;
     }
 
     public boolean isSolid() {
@@ -33,6 +37,10 @@ public abstract class gameObject {
 
     public int getPosY() {
         return posY;
+    }
+
+    public int getFloor() {
+        return floor;
     }
 
     public void setPox(int x, int y) {

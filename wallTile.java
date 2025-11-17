@@ -8,8 +8,8 @@ import java.awt.Color;
 
 public class wallTile extends gameObject{
 
-    public wallTile(int posX, int posY, boolean solid) {
-        super(posX, posY, true);
+    public wallTile(int posX, int posY, int floor) {
+        super(posX, posY, true, floor);
     }
 
     @Override
