@@ -6,15 +6,11 @@ import javax.imageio.ImageIO;
 
 public class stairTile extends gameObject {
 
-    private int targetX;
-    private int targetY;
     private int targetFloor;
     private BufferedImage sprite;
 
-    public stairTile(int posX, int posY, int currentFloor, int targetX, int targetY, int targetFloor) {      
+    public stairTile(int posX, int posY, int currentFloor, int targetFloor) {      
         super(posX, posY, false, currentFloor);        
-        this.targetX = targetX;
-        this.targetY = targetY;
         this.targetFloor = targetFloor;
 
         try {
@@ -29,8 +25,22 @@ public class stairTile extends gameObject {
         g.drawImage(sprite, posX * Board.TILE_SIZE, posY * Board.TILE_SIZE, null);
     }
 
+    // Not using interact cause its only does its job by stepping on it
+    // This has caused ridiculous amounts of annoyances
     @Override
-    public void interact(Player player) {
+    public void onPlayerStep(Player player, Board board) {
+
         player.setFloor(targetFloor);
+
+        // This is getting ridiculous
+        // Just spawn the player 1 tile above the stair when using it
+        player.setPosition(posX, posY - 1);
+
+        board.changeFloor(targetFloor);
+        
+        // Debug
+        System.out.println("Stepped on stairs. Player floor: " 
+                            + player.getCurrentFloor() + 
+                            ", Board floor: " + board.getCurrentfloor());
     }
 }

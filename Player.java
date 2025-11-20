@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,6 +11,7 @@ import javax.imageio.ImageIO;
  *          The user character
  *          Moves with W, A, S, D
  *          The primary Model class of the MVC
+ *          Be ready for methods that reach the ends of Earth
  * 
  */
 
@@ -33,12 +35,16 @@ public class Player {
     // Direction faced by the user
     private Direction facing = Direction.UP;
 
+    // Tracker for current floor
+    private int currentFloor = 1;   // Starts on 1st floor
+
     // Constant location for Spawn
     public static final int spawnX = 11;
     public static final int spawnY = 21;
 
-    // Tracker for current floor
-    private int currentFloor = 1;   // Starts on 1st floor
+    // Actual user inputted data
+    private String name;
+    private int age;
 
     public Player(int posX, int posY) {
         // Load character sprites
@@ -81,6 +87,7 @@ public class Player {
     }
 
     // Handles the player's movements
+    // 17/11/2025 b0.5 - merged all 4 movement methods into one
     public void moveUp() {      // W
         pos.translate(0, -1);
         tick();
@@ -99,6 +106,24 @@ public class Player {
     public void moveLeft() {      // A
         pos.translate(-1, 0);
         tick();
+    }
+
+    // Unified movement method
+    public void moveDirection(Direction direction) {
+        switch (direction) {
+            case UP: 
+                moveUp();
+                break;
+            case DOWN:
+                moveDown();
+                break;
+            case LEFT:
+                moveLeft();
+                break;
+            case RIGHT:
+                moveRight();
+                break;
+        }
     }
 
     // Handles the player's vision
@@ -128,14 +153,37 @@ public class Player {
         return facing;
     }
 
+    // Current floor getter
     public int getCurrentFloor() {
         return currentFloor;
     }
 
+    // floor setter
     public int setFloor(int targetFloor) {
         return currentFloor = targetFloor;
     }
-    
+
+    public void setPosition(int x, int y) {
+        this.pos.x = x;
+        this.pos.y = y;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     // Get the current direction sprite of the player
     public BufferedImage getCurrentSprite() {
         switch (facing) {
@@ -170,5 +218,14 @@ public class Player {
                 break;
         }
     return nextTile;    
+    }
+
+    // PRIMARILY FOR THE SIMULATION PANEL CLASS
+    public void draw(Graphics g) {
+        if (playerUp == null) {
+            return;
+        }
+
+        g.drawImage(getCurrentSprite(), pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, null);
     }
 } 

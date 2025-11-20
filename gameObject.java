@@ -54,4 +54,8 @@ public abstract class gameObject {
     // Empty so as to act as a placeholder for subclasses
     public void interact(Player player) {
     }
+
+    // For tiles that can be stepped on (stairs, doors)
+    public void onPlayerStep(Player player, Board board) {
+    }
 }

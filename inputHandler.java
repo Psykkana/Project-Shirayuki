@@ -13,11 +13,9 @@ import javax.swing.JPanel;
 
 public class inputHandler implements KeyListener{
     
-    // Load the board
+    // Load the board and player
     private Board board;
-
     private Player player;
-
 
     public inputHandler(Player player, Board board) {
         this.player = player;
@@ -28,33 +26,26 @@ public class inputHandler implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         // Every keyboard get has a certain code
-        // Get the value of that code from the keyboard event so we can compare with KeyEvent constants
+        // Get the value of that code from the keyboard event 
+        // so we can compare with KeyEvent constants
 
         int key = e.getKeyCode();
 
-        // LOOK INTO THE KeyEvent's potential outputs
+        // NOTE: Look into KeyEvent's potential outputs
         // https://docs.oracle.com/javase/8/docs/api/java/awt/event/KeyEvent.html
         switch (key) {
             // Movement Inputs
             case KeyEvent.VK_W:             // Move up 1 tile
-                if (checkCollisions(Player.Direction.UP)) {
-                    player.moveUp();                      
-                }  
+                moveAttempt(Player.Direction.UP);
                 break;
             case KeyEvent.VK_S:             // Move down 1 tile
-                if (checkCollisions(Player.Direction.DOWN)) {
-                    player.moveDown();                      
-                }            
+                moveAttempt(Player.Direction.DOWN);          
                 break;
             case KeyEvent.VK_A:             // Move left 1 tile
-                if (checkCollisions(Player.Direction.LEFT)) {
-                    player.moveLeft();                      
-                }
+                moveAttempt(Player.Direction.LEFT);
                 break;
             case KeyEvent.VK_D:             // Move right 1 tile
-                if (checkCollisions(Player.Direction.RIGHT)) {
-                    player.moveRight();                      
-                }
+                moveAttempt(Player.Direction.RIGHT);
                 break;
 
             // Vision inputs (Direction)
@@ -74,18 +65,33 @@ public class inputHandler implements KeyListener{
         board.repaint();
     }   
 
-    // Check movement if its possible (Yes or No)
-    private boolean checkCollisions(Player.Direction direction) {
+    // Check movement if its possible (Yes or No) then make the move
+    private void moveAttempt(Player.Direction direction) {
+
         Point nextTile = player.getNextTile(direction);
 
-        // Go through the arraylist of game objects
+        // Collision check with all the objects on the board
         for (gameObject objects : board.getObjects()) {
-            if (objects.getPosX() == nextTile.x && objects.getPosY() == nextTile.y) {
-                if (objects.isSolid() == true);
-                    return false;   // Block movement
+            if (objects.getPosX() == nextTile.x && 
+                objects.getPosY() == nextTile.y &&
+                objects.getFloor() == player.getCurrentFloor()) {
+                if (objects.isSolid()) {
+                   return;  // Block movement (exits the method)
+                }
             }
         }
-        return true;        // Allow movement
+
+        // Actually move the character
+        player.moveDirection(direction);
+
+        // Interaction checks (for non-solid tiles)
+        for (gameObject objects : board.getObjects()) {
+            if (objects.getPosX() == player.getPos().x && 
+                objects.getPosY() == player.getPos().y &&
+                objects.getFloor() == player.getCurrentFloor()) {
+                objects.onPlayerStep(player, board);    // trigger interaction
+            }
+        }
     }
 
     @Override

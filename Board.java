@@ -1,6 +1,5 @@
 import java.awt.*;          // Drawing graphics
 import java.awt.image.BufferedImage;
-import java.awt.image.DirectColorModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,21 +20,17 @@ public class Board extends JPanel {
     public static final int X_AXIS_SIZE = 22;
     public static final int Y_AXIS_SIZE = 22;
 
-    // // Suppresses serialization warning
-    // private static final long serialVersionUID = 490905409104883233L;
-
-    // Represents the player position on the board
+    // Represents the player and player position on the board
     private BufferedImage playerChar;
-    // Objects that appear in the game board
     private Player player;
 
     // The Floors
-    private int currentFloor = 1;
+    private int currentFloor = 1;  
 
     // Store arraylist of objects
     private ArrayList<gameObject> objects;
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Constructor
     public Board(Player player) {
@@ -67,11 +62,17 @@ public class Board extends JPanel {
         return objects;
     }
 
+    public int getCurrentfloor() {
+        return currentFloor;
+    }
+
+    // technically a setter
     public void changeFloor(int floor) {
         currentFloor = floor;
         repaint();
     }
 
+    // Load the starting player position image (facing up)
     private void loadImages() {
         try {
             playerChar = ImageIO.read(new File("assets/player_up.png"));
@@ -80,6 +81,18 @@ public class Board extends JPanel {
         }
     }    
 
+    // For non-solid tile checking
+    public gameObject getTileObject(int posX, int posY, int floor) {
+        for (gameObject obj : objects) {
+            if (obj.getPosX() == posX && obj.getPosY() == posY && obj.getFloor() == floor) {
+                return obj;
+            }
+        }
+        return null;
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void paintComponent(Graphics g) {
         // Use this to call the methods that build and fill up the grid
@@ -87,7 +100,6 @@ public class Board extends JPanel {
         super.paintComponent(g);        // Clears the screen first
 
         drawBackground(g);      // Draws the background tiles
-        drawText(g);           // Draws the text
 
         // Draw the current floor with their corresponding assets
         for (gameObject obj : objects) {
@@ -104,8 +116,23 @@ public class Board extends JPanel {
 
         }
 
+        drawText(g);           // Draws the text
+
         // Smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    // PRIMARILY FOR THE SIMULATION PANEL CLASS
+    public void drawBoard(Graphics g) {
+        drawBackground(g);
+
+        for (gameObject object : objects) {
+            if (object.getFloor() == currentFloor) {
+                object.draw(g);
+            }
+        }
+
+        drawText(g);
     }
 
     public void drawBackground(Graphics g) {
@@ -116,7 +143,7 @@ public class Board extends JPanel {
         for (int yAxis = 0; yAxis < Y_AXIS_SIZE; yAxis++) {
             for (int xAxis = 0; xAxis < X_AXIS_SIZE; xAxis++) {
                 // Only color every other tile
-                if ((yAxis + xAxis) % 2 == 1) {
+                if ((xAxis + yAxis) % 2 == 1) {
                     // Draw a square tile at current coordinate
                     g.fillRect(yAxis * TILE_SIZE, xAxis * TILE_SIZE, TILE_SIZE, TILE_SIZE);
                 }
@@ -126,7 +153,7 @@ public class Board extends JPanel {
 
     private void drawText(Graphics g) {
         // Set text to be displayed
-        String text = "Project Shirayuki b0.3";
+        String text = "Project Shirayuki b0.5";
 
         // Cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
