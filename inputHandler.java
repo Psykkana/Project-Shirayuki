@@ -11,7 +11,8 @@ import javax.swing.JPanel;
  *          
  */
 
-public class inputHandler implements KeyListener{
+public class inputHandler implements KeyListener {  
+    // NOTE: NO NEED TO PUT KEYLISTENER IN UML
     
     // Load the board and player
     private Board board;
@@ -60,6 +61,10 @@ public class inputHandler implements KeyListener{
                 break;
             case KeyEvent.VK_L:
                 player.faceRight();
+                break;
+
+            // User interaction
+            case KeyEvent.VK_E:
                 break;
         }
         board.repaint();

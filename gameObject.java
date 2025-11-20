@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 
 /*
@@ -58,4 +57,8 @@ public abstract class gameObject {
     // For tiles that can be stepped on (stairs, doors)
     public void onPlayerStep(Player player, Board board) {
     }
-}
+
+    // For amenities that you click to interact with
+    public void onPlayerClick() {
+    }
+ }

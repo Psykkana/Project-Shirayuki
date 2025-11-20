@@ -6,9 +6,11 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.imageio.ImageIO;
+import javax.swing.JTextField;
 
 public class startMenu extends JPanel {
     
@@ -45,8 +47,57 @@ public class startMenu extends JPanel {
             @Override   
             public void actionPerformed(ActionEvent e) {
                 // Collect and parse the inputs
-                String playerName = JOptionPane.showInputDialog(startMenu.this, "Enter your name: ");
-                int playerAge = Integer.parseInt(JOptionPane.showInputDialog(startMenu.this, "Enter your age: "));
+                JPanel inputPanel = new JPanel();
+                // Use GridLayout Layout Manager
+                inputPanel.setLayout(new GridLayout(2, 2, 10, 10));
+
+                JTextField nameInput = new JTextField();
+                JTextField ageInput = new JTextField();
+
+                inputPanel.add(new JLabel("Enter Name: "));
+                inputPanel.add(nameInput);                
+                inputPanel.add(new JLabel("Enter age: "));
+                inputPanel.add(ageInput);
+
+                // If we still want separate dialog inputs
+                // String playerName = JOptionPane.showInputDialog(startMenu.this, "Enter your name: ");
+                // int playerAge = Integer.parseInt(JOptionPane.showInputDialog(startMenu.this, "Enter your age: "));
+               
+                int choice = JOptionPane.showConfirmDialog(startMenu.this, inputPanel, 
+                                                    "User Information", JOptionPane.OK_CANCEL_OPTION, 
+                                                    JOptionPane.PLAIN_MESSAGE);
+                
+                // If user clicks CANCEL, then do nothing
+                if (choice != JOptionPane.OK_OPTION) {
+                    return;
+                }
+
+                // Extract the name and age
+                String playerName = nameInput.getText();
+                String age = ageInput.getText();
+
+                // Name validation - field musn't be empty
+                if (playerName.isEmpty()) {
+                    JOptionPane.showMessageDialog(startMenu.this, "Player name must not be empty", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int playerAge;
+
+                // Age validation - must be valid number
+                try {
+                    playerAge = Integer.parseInt(age);  // Turn to int                    
+                } catch (NumberFormatException numex) {
+                    JOptionPane.showMessageDialog(startMenu.this, "Age must be a valid number input", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Don't start the simulation
+                }
+
+                // Age validation - must be reasonable (within range)
+                if (playerAge <= 1 || playerAge > 99) {
+                    JOptionPane.showMessageDialog(startMenu.this, "Age must be between 1 - 99", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 Player player = simulation.getPlayer();
 
                 player.setName(playerName);

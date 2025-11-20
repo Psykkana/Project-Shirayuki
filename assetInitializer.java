@@ -1,9 +1,3 @@
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
-
 /*
  *  The Asset Initializer Class
  *      Does things like initialize the map objects to be placed in the board
@@ -21,6 +15,11 @@ public class assetInitializer {
         // Stairs
         board.addObject(new stairTile(1, 15, floorOne, floorTwo));
         board.addObject(new stairTile(20, 15, floorOne, floorTwo));
+
+        // The exit door
+        board.addObject(new exitTile(10, 21, floorOne));
+        // The entrance door
+        board.addObject(new entranceTile(11, 21, floorOne));
 
         // The walls on the top side
         for (int x = 0; x <= 21; x++) {

@@ -187,4 +187,10 @@ public class Board extends JPanel {
         g2d.drawString(text, x, y);
     }
 
+    // Call to end the program
+    public void endSimulation() {
+        System.out.println("Exiting the simulation");
+        System.exit(0);
+    }
+
 }
