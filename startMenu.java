@@ -15,10 +15,10 @@ import javax.swing.JTextField;
 public class startMenu extends JPanel {
     
     private BufferedImage titleImage;
-    private static final int TITLE_WIDTH = 450;
-    private static final int TITLE_HEIGHT = 225;
-    private static final int IMG_OFFSET_X = 90;
-    private static final int IMG_OFFSET_Y = 150;
+    private static final int TITLE_WIDTH = 600;
+    private static final int TITLE_HEIGHT = 300;
+    private static final int IMG_OFFSET_X = 180;
+    private static final int IMG_OFFSET_Y = 50;
 
     // Calculations for centering the buttons and other assets    
     private static final int buttonWidth = 200;
