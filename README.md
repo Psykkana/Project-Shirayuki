@@ -20,7 +20,7 @@ current features:
 6. User direction with keyboard input (I, J, K, L) and visual representation
 7. Background drawing system
 8. Smooth Rendering / Animation Sync
-
+---
 **Project-Shirayuki**
 <p>GUI-based supermarket simulator</p>
 <p>Successor to [Project-Gotland](https://github.com/Psykkana/Project-Gotland)</p>
