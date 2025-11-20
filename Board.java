@@ -72,6 +72,10 @@ public class Board extends JPanel {
         repaint();
     }
 
+    public Player getPlayer() {
+        return this.player;
+    }
+
     // Load the starting player position image (facing up)
     private void loadImages() {
         try {
@@ -153,7 +157,7 @@ public class Board extends JPanel {
 
     private void drawText(Graphics g) {
         // Set text to be displayed
-        String text = "Project Shirayuki b0.5";
+        String text = "Project Shirayuki b0.5.1";
 
         // Cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
