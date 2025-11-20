@@ -9,9 +9,9 @@
   	</ul>
 </div>
 
-current build: build 0.5.1
+Current build: build 0.5.1
 
-current features:
+Current features:
 1. Basic GUI (With Swing and associated assets)
 2. Main menu with start and exit buttons
 3. Two floors connected with stairs 
@@ -20,15 +20,20 @@ current features:
 6. User direction with keyboard input (I, J, K, L) and visual representation
 7. Background drawing system
 8. Smooth Rendering / Animation Sync
+   
 ---
+
 **Project-Shirayuki**
 <p>GUI-based supermarket simulator</p>
 <p>Successor to [Project-Gotland](https://github.com/Psykkana/Project-Gotland)</p>
 <p>Initially built off of code from https://github.com/learncodebygaming/java_2d_game</p>
+<p>Makes use of Swing, JFrame, and associated libraries to create a GUI-based system</p>
+
+---
 
 ## **How to use** ##
 1. Download the .java files + the assets folder
-2. Compile the .java files with 'javac *,java' in the command prompt
+2. Compile the .java files with 'javac *.java' in the command prompt
 4. Run the Driver file with 'java Driver' in the command prompt
 5. Click the Start Simulation button and input a name and age
 6. Move around with W, A, S, D
