@@ -50,8 +50,8 @@ public abstract class gameObject {
     // Every object that extends this class must know how to draw itself
     public abstract void draw(Graphics g);
 
-    // Empty so as to act as a placeholder for subclasses
-    public void interact(Player player) {
+    // For tiles that have to be faced (within 1 tile) to be interacted with
+    public void onInteract(Player player, Board board) {
     }
 
     // For tiles that can be stepped on (stairs, doors)

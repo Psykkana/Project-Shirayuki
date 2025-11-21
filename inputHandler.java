@@ -1,7 +1,6 @@
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JPanel;
 
 /*
  *      The InputHandler Class
@@ -50,21 +49,22 @@ public class inputHandler implements KeyListener {
                 break;
 
             // Vision inputs (Direction)
-            case KeyEvent.VK_I:
+            case KeyEvent.VK_I:             // Look up             
                 player.faceUp();
                 break;
-            case KeyEvent.VK_K:
+            case KeyEvent.VK_K:             // Look down
                 player.faceDown();
                 break;
-            case KeyEvent.VK_J:
+            case KeyEvent.VK_J:             // Look left
                 player.faceLeft();
                 break;
-            case KeyEvent.VK_L:
+            case KeyEvent.VK_L:             // Look right
                 player.faceRight();
                 break;
 
             // User interaction
             case KeyEvent.VK_E:
+                interactAttempt();
                 break;
         }
         board.repaint();
@@ -97,6 +97,21 @@ public class inputHandler implements KeyListener {
                 objects.onPlayerStep(player, board);    // trigger interaction
             }
         }
+    }
+
+    private void interactAttempt() {
+        Point frontTile = player.getNextTile(player.getFacing());
+        // Get the tile directly in front of what user is facing
+
+        // Check interactibility
+        for (gameObject objects : board.getObjects()) {
+            if (objects.getPosX() == player.getPos().x && 
+                objects.getPosY() == player.getPos().y &&
+                objects.getFloor() == player.getCurrentFloor()) {
+                objects.onInteract(player, board);
+            }
+        }
+
     }
 
     @Override
