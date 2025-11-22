@@ -105,8 +105,8 @@ public class inputHandler implements KeyListener {
 
         // Check interactibility
         for (gameObject objects : board.getObjects()) {
-            if (objects.getPosX() == player.getPos().x && 
-                objects.getPosY() == player.getPos().y &&
+            if (objects.getPosX() == frontTile.x && 
+                objects.getPosY() == frontTile.y &&
                 objects.getFloor() == player.getCurrentFloor()) {
                 objects.onInteract(player, board);
             }

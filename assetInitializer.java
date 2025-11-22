@@ -1,6 +1,7 @@
 /*
  *  The Asset Initializer Class
  *      Does things like initialize the map objects to be placed in the board
+ * 
  */
 
 public class assetInitializer {
@@ -11,6 +12,21 @@ public class assetInitializer {
 
     // Objects and displays of the 1st Floor    
     public static void intializeFloorOne(Board board) {
+
+        // Declare the products
+        fruitProduct fruit1 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
+        fruitProduct fruit2 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
+        fruitProduct fruit3 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
+        fruitProduct fruit4 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
+
+        // Declare addresses for the displays (String floor, String grouping, int number)
+        displayAddress table1013 = new displayAddress("GF", "Aisle Test", 1);
+        tableDisplay table1013Tile = new tableDisplay(10, 13, floorOne, table1013);
+        table1013Tile.addProduct(fruit1);  
+        table1013Tile.addProduct(fruit2);
+        table1013Tile.addProduct(fruit3); 
+        table1013Tile.addProduct(fruit4);                                
+        board.addObject(table1013Tile);
 
         // Stairs
         board.addObject(new stairTile(1, 15, floorOne, floorTwo));
