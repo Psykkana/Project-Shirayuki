@@ -16,88 +16,75 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
 /*
- *  The tableDisplay subclass
- *      A displayTile     
+ *  shelfDisplay
+ *      DisplayTile for all shelf-based products
  */
-public class tableDisplay extends displayTile {
+public class shelfDisplay extends displayTile {
 
-    private ArrayList<Product> products;    // max 4
+    private ArrayList<Product> products;    // up to 8
 
-    public tableDisplay(int posX, int posY, int floor, displayAddress address) {
-        super(posX, posY, floor, address, "Table Display" , 4);
-        loadSprite("assets/table.png");
+    public shelfDisplay(int posX, int posY, int floor, displayAddress address) {
+        super(posX, posY, floor, address, "Shelf Display", 8);
+        loadSprite("assets/shelf.png");     // lets take note of this. this is the sprite name.
         products = new ArrayList<>();
     }
 
     public void addProduct(Product p) {
-    // Only add items that are allowed on a table
-    if (p != null && canBeOnTable(p) && products.size() < capacity) {
-        products.add(p);
-     } else {
-        // Optional: debug if something wrong is being added
-        System.out.println("DEBUG: Attempted to add non-table product "
-                + (p != null ? p.getSerialID() : "null")
-                + " to table at " + getPosX() + ", " + getPosY());
+        if (products.size() < capacity) {
+            products.add(p);
         }
     }
-
 
     @Override
     public void onInteract(Player player, Board board) {
 
-        System.out.println("Interacted with table at " + getPosX() + ", " + getPosY());
+        System.out.println("Interacted with shelf at " + getPosX() + ", " + getPosY());
 
-        // Create the popup frame FIRST so listeners can reference it
-        final JFrame frame = new JFrame("Table Display");
+        final JFrame frame = new JFrame("Shelf Display");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // ==== MAIN PANEL ====
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10, 10));
         mainPanel.setBackground(new Color(220, 220, 220));
-        mainPanel.setPreferredSize(new Dimension(300, 300));        
+        mainPanel.setPreferredSize(new Dimension(400, 300));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20 ,20));
-    
-        // Title text (address)
-        JLabel mainTitle = new JLabel("Table (" + address + ")", JLabel.CENTER);
+
+        JLabel mainTitle = new JLabel("Shelf (" + address + ")", JLabel.CENTER);
         mainTitle.setFont(new Font("Leto", Font.BOLD, 20));
         mainPanel.add(mainTitle, BorderLayout.NORTH);
 
-        // Inner product panel (2x2 grid)
-        JPanel productPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        // Shelf: 2 rows x 4 columns
+        JPanel productPanel = new JPanel(new GridLayout(2, 4, 10, 10));
         productPanel.setBackground(Color.GRAY);
         productPanel.setBorder(BorderFactory.createTitledBorder("Products"));
-        productPanel.setPreferredSize(new Dimension(220, 220));
+        productPanel.setPreferredSize(new Dimension(340, 220));
         mainPanel.add(productPanel, BorderLayout.CENTER);
-    
-        // ==== 4 product slots ====
-        for (int i = 0; i < 4; i++) {
+
+        for (int i = 0; i < capacity; i++) {
             final JButton productButton;
 
             if (i < products.size()) {
-                // --- EXISTING PRODUCT SLOT: take item FROM display ---
+                // SLOT WITH PRODUCT: take item
                 final Product p = products.get(i);
-                
+
                 ImageIcon icon = new ImageIcon("assets/placeholder100x100.png");
                 icon = new ImageIcon(
-                    icon.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)
+                    icon.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH)
                 );
-                
+
                 productButton = new JButton(icon);
-                productButton.setPreferredSize(new Dimension(100, 100));
+                productButton.setPreferredSize(new Dimension(80, 80));
                 productButton.setFocusable(false);
 
                 productButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
-                        // Try to give the product to the player
                         boolean taken = player.pickUpProduct(p);
 
                         if (!taken) {
-                            // Player has no more space (equipment full + 2 hand items)
                             JOptionPane.showMessageDialog(
-                                frame,   // <— IMPORTANT: owned by this popup window
+                                frame,
                                 "You cannot carry any more products.\n" +
                                 "Return some items or get equipment with more capacity.",
                                 "Inventory Full",
@@ -109,7 +96,6 @@ public class tableDisplay extends displayTile {
                         System.out.println("DEBUG: " + player.getName() + " picked up "
                                 + p.getProductType() + " - " + p.getSerialID());
 
-                        // Remove from this display
                         products.remove(p);
                         productButton.setEnabled(false);
                         productButton.setBackground(Color.LIGHT_GRAY);
@@ -119,7 +105,7 @@ public class tableDisplay extends displayTile {
                 });
 
             } else {
-                // --- EMPTY SLOT: return item FROM inventory BACK to this table ---
+                // EMPTY SLOT: return shelf-allowed item
                 productButton = new JButton("Empty");
                 productButton.setBackground(Color.LIGHT_GRAY);
                 productButton.setFocusable(false);
@@ -128,55 +114,51 @@ public class tableDisplay extends displayTile {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
-                        // 1) Look for a table-compatible product in player's hands
                         Product toReturn = null;
 
-                        // From hands
+                        // 1) check hands
                         for (Product hp : player.getHandProducts()) {
-                            if (canBeOnTable(hp)) {
+                            if (canBeOnShelf(hp)) {
                                 toReturn = hp;
                                 break;
                             }
                         }
 
-                        // 2) If not found in hands, look in equipment
+                        // 2) check equipment
                         if (toReturn == null && player.getEquipment() != null) {
                             for (Product ep : player.getEquipment().getProducts()) {
-                                if (canBeOnTable(ep)) {
+                                if (canBeOnShelf(ep)) {
                                     toReturn = ep;
                                     break;
                                 }
                             }
                         }
 
-                        // 3) If still null, nothing suitable to return to this table
                         if (toReturn == null) {
                             JOptionPane.showMessageDialog(
                                 frame,
-                                "You have no items that can be placed on this table.",
+                                "You have no items that can be placed on this shelf.",
                                 "Return Product",
                                 JOptionPane.INFORMATION_MESSAGE
                             );
                             return;
                         }
 
-                        // 4) Remove from player inventory and add back to this display
                         player.dropProduct(toReturn);
                         products.add(toReturn);
 
-                        // 5) Feedback on this slot
                         productButton.setEnabled(false);
                         productButton.setText("Returned");
                         productButton.setBackground(Color.WHITE);
 
                         System.out.println("DEBUG: " + player.getName()
                                 + " returned " + toReturn.getProductType()
-                                + " (" + toReturn.getSerialID() + ") to table at "
+                                + " (" + toReturn.getSerialID() + ") to shelf at "
                                 + getPosX() + ", " + getPosY());
                     }
                 });
             }
-            
+
             productButton.setFocusable(false);
             productPanel.add(productButton);
         }
@@ -184,17 +166,18 @@ public class tableDisplay extends displayTile {
         frame.add(mainPanel);
         frame.pack();
         frame.setAlwaysOnTop(true);
-        frame.setLocationRelativeTo(null);  // Center on screen
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
-    // Only allow certain product types on tables (per specs)
-    // Fruit, Vegetable, Bread, Eggs => FRU, VEG, BRD, EGG
-    private boolean canBeOnTable(Product p) {
-        String prefix = p.getSerialID().substring(0, 3);  // FRU, VEG, BRD, EGG
-        return prefix.equals("FRU")
-            || prefix.equals("VEG")
-            || prefix.equals("BRD")
-            || prefix.equals("EGG");
+    // Filter: only products that are only meant for shelves can be here so u cant return others(prefixes)
+    private boolean canBeOnShelf(Product p) {
+        String prefix = p.getSerialID().substring(0, 3);
+        return prefix.equals("CER") || prefix.equals("NDL") || prefix.equals("SNK")
+            || prefix.equals("CAN") || prefix.equals("CON") || prefix.equals("SFT")
+            || prefix.equals("JUC") || prefix.equals("ALC") || prefix.equals("CLE")
+            || prefix.equals("HOM") || prefix.equals("HAR") || prefix.equals("BOD")
+            || prefix.equals("DEN") || prefix.equals("CLO") || prefix.equals("STN")
+            || prefix.equals("PET");
     }
 }

@@ -3,7 +3,7 @@
     	<summary>
 			<b>
       		<h1>Project Shirayuki</h1>
-			<h3><i>by Psykana & OpEnInnit</i></h3>
+			<h3><i>by Psykana</i></h3>
 			</b>
     	</summary>
   	</ul>
