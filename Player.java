@@ -3,6 +3,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -45,6 +47,12 @@ public class Player {
     // Actual user inputted data
     private String name;
     private int age;
+
+    //Equipments carried by the user
+    private Equipment equipment;
+    
+    //Products carried on hand if user has no equipment currently
+    private ArrayList<Product> handProducts = new ArrayList<>();
 
     public Player(int posX, int posY) {
         // Load character sprites
@@ -184,6 +192,50 @@ public class Player {
         return age;
     }
 
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
+    public boolean hasEquipment() {
+        return equipment != null;
+    }
+
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+    }
+
+    public ArrayList<Product> getHandProducts() {
+        return handProducts;
+    }
+    
+    // Return every product the player is currently carrying
+    public List<Product> getAllCarriedProducts() {
+        List<Product> all = new ArrayList<>();
+
+        // Hand-carried products
+        all.addAll(handProducts);
+
+        // Products in equipment (basket/cart), if any
+        if (equipment != null) {
+            all.addAll(equipment.getProducts());
+        }
+
+        return all;
+    }
+
+
+    public boolean isHandsFull() {
+        return handProducts.size() >= 2;
+    }
+
+    public int getTotalCarriedItems() {
+        int total = handProducts.size();
+        if (equipment != null) {
+            total += equipment.getCurrentLoad();
+        }
+        return total;
+    }
+
     // Get the current direction sprite of the player
     public BufferedImage getCurrentSprite() {
         switch (facing) {
@@ -228,4 +280,40 @@ public class Player {
 
         g.drawImage(getCurrentSprite(), pos.x * Board.TILE_SIZE, pos.y * Board.TILE_SIZE, null);
     }
+     /**
+     * Attempts to add a product to the player's inventory.
+     * Priority:
+     *  1. Put in equipment if present and not full.
+     *  2. Otherwise, hand-carry (up to 2 items).
+     * Returns true if the product was successfully taken.
+     */
+    public boolean pickUpProduct(Product p) {
+
+        // If player has equipment, try to put product there first
+        if (equipment != null && !equipment.isFull()) {
+            equipment.addProduct(p);
+            return true;
+        }
+
+        // Otherwise, use hands (max 2 products)
+        if (!isHandsFull()) {
+            handProducts.add(p);
+            return true;
+        }
+
+        // No space anywhere
+        return false;
+    }
+
+    /**
+     * Removes a product the player is carrying.
+     * Used when returning items to displays (future step).
+     */
+    public boolean dropProduct(Product p) {
+        if (equipment != null && equipment.getProducts().contains(p)) {
+            return equipment.removeProduct(p);
+        }
+        return handProducts.remove(p);
+    }
+
 } 

@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;       // Stuff like JPanel and timer 
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /*
  *      The Board Class
@@ -187,10 +190,101 @@ public class Board extends JPanel {
         g2d.drawString(text, x, y);
     }
 
+    // Shows a popup window with all chosen products and totals
+    public void showChosenProductsView() {
+        Player p = this.player;
+
+        List<Product> carried = p.getAllCarriedProducts();
+
+        if (carried.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                this,
+                "You are not carrying any products yet.",
+                "Chosen Products",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+
+        // Group by productType
+        Map<String, ProductSummary> summaryMap = new HashMap<>();
+
+        for (Product prod : carried) {
+            String key = prod.getProductType();
+            ProductSummary sum = summaryMap.get(key);
+
+            if (sum == null) {
+                sum = new ProductSummary(key, prod.getPrice());
+                summaryMap.put(key, sum);
+            }
+
+            sum.quantity++;
+            sum.totalPrice = sum.quantity * sum.unitPrice;
+        }
+
+        // Build table data
+        Object[][] rowData = new Object[summaryMap.size()][3];
+        String[] columnNames = { "Product", "Quantity", "Total Price (PHP)" };
+
+        int i = 0;
+        for (ProductSummary sum : summaryMap.values()) {
+            rowData[i][0] = sum.name;
+            rowData[i][1] = sum.quantity;
+            rowData[i][2] = String.format("%.2f", sum.totalPrice);
+            i++;
+        }
+        // Compute the overall total price
+        double overallTotal = 0.0;
+        for (ProductSummary sum : summaryMap.values()) {
+            overallTotal += sum.totalPrice;
+        }
+
+        JTable table = new JTable(rowData, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        String equipmentName = p.hasEquipment() ? p.getEquipment().getName() : "Hands";
+        JLabel label = new JLabel("Equipment: " + equipmentName, SwingConstants.CENTER);
+
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        // Show overall total at bottom
+        JLabel totalLabel = new JLabel(
+            "OVERALL TOTAL: " + String.format("%.2f PHP", overallTotal),
+            SwingConstants.CENTER
+        );
+        totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+        panel.add(totalLabel, BorderLayout.SOUTH);
+
+        JOptionPane.showMessageDialog(
+            this,
+            panel,
+            "Chosen Products",
+            JOptionPane.PLAIN_MESSAGE
+        );
+    }
+
     // Call to end the program
     public void endSimulation() {
         System.out.println("Exiting the simulation");
         System.exit(0);
     }
 
+        // Helper class for summarizing unique products
+    private static class ProductSummary {
+        String name;
+        double unitPrice;
+        int quantity;
+        double totalPrice;
+
+        ProductSummary(String name, double unitPrice) {
+            this.name = name;
+            this.unitPrice = unitPrice;
+            this.quantity = 0;
+            this.totalPrice = 0.0;
+        }
+    }
+
 }
+

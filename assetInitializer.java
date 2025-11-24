@@ -1,8 +1,11 @@
+
+
 /*
  *  The Asset Initializer Class
  *      Does things like initialize the map objects to be placed in the board
  * 
  */
+
 
 public class assetInitializer {
     
@@ -13,11 +16,12 @@ public class assetInitializer {
     // Objects and displays of the 1st Floor    
     public static void intializeFloorOne(Board board) {
 
-        // Declare the products
-        fruitProduct fruit1 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
-        fruitProduct fruit2 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
-        fruitProduct fruit3 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
-        fruitProduct fruit4 = new fruitProduct("Apple", "FRU", 30.00, true, true, false, false);
+       // Declare the products (this time with the product factory class)
+        Product fruit1 = ProductFactory.createFruit(); 
+        Product fruit2 = ProductFactory.createFruit();
+        Product fruit3 = ProductFactory.createFruit();
+        Product fruit4 = ProductFactory.createFruit();
+
 
         // Declare addresses for the displays (String floor, String grouping, int number)
         displayAddress table1013 = new displayAddress("GF", "Aisle Test", 1);
@@ -36,6 +40,11 @@ public class assetInitializer {
         board.addObject(new exitTile(10, 21, floorOne));
         // The entrance door
         board.addObject(new entranceTile(11, 21, floorOne));
+
+        // Basket and Cart stations 
+        board.addObject(new basketStationTile(1, 20, floorOne)); 
+        board.addObject(new cartStationTile(20, 20, floorOne));    
+
 
         // The walls on the top side
         for (int x = 0; x <= 21; x++) {

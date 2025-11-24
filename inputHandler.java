@@ -66,6 +66,11 @@ public class inputHandler implements KeyListener {
             case KeyEvent.VK_E:
                 interactAttempt();
                 break;
+                
+            case KeyEvent.VK_V:             // View chosen products
+                board.showChosenProductsView();
+                break;
+
         }
         board.repaint();
     }   
