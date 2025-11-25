@@ -9,17 +9,21 @@
   	</ul>
 </div>
 
-Current build: build 0.5.1
+Current build: build 0.7.4
 
 Current features:
 1. Basic GUI (With Swing and associated assets)
 2. Main menu with start and exit buttons
-3. Two floors connected with stairs 
-4. User avatar (spawns at x = 11 y = 21)
-5. Movement with keyboard input (W, A, S, D)
-6. User direction with keyboard input (I, J, K, L) and visual representation
-7. Background drawing system
-8. Smooth Rendering / Animation Sync
+3. User name and age input (used for certain interactions like senior discounts)
+4. Two floors connected with stairs 
+5. User avatar (spawns at x = 11 y = 21)
+6. Movement with keyboard input (W, A, S, D)
+7. User direction with keyboard input (I, J, K, L) and visual representation
+8. Amenity interaction with E (opens new windows that are click-based)
+9. Background music once you get past the start menu
+10. A controls tab (press C to show)
+11. Background drawing system
+12. Smooth Rendering / Animation Sync
    
 ---
 
@@ -38,3 +42,5 @@ Current features:
 5. Click the Start Simulation button and input a name and age
 6. Move around with W, A, S, D
 7. Look around with I, J, K, L
+8. Interact with amenities with E
+9. Show controls with C
