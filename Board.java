@@ -20,7 +20,7 @@ import javax.sound.sampled.*;   // For background music
 public class Board extends JPanel {
 
     // Should've done this earlier, just change the string depending on what build ur on
-    private String currentVersion = "b0.7.4";
+    private final String currentVersion = "b0.7.6";
 
     // Size of each tile on the board (in pixels)
     public static final int TILE_SIZE = 35;
@@ -29,13 +29,13 @@ public class Board extends JPanel {
 
     // Represents the player and player position on the board
     private BufferedImage playerChar;
-    private Player player;
+    private final Player player;
 
     // The Floors
     private int currentFloor = 1;  
 
     // Store arraylist of objects
-    private ArrayList<gameObject> objects;
+    private final ArrayList<gameObject> objects;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

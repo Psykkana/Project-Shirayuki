@@ -1,5 +1,3 @@
-import java.awt.Image;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /*
@@ -33,6 +31,7 @@ class Driver {
         assetInitializer.intializeFloorTwo(board);
 
         inputHandler controller = new inputHandler(player, board);
+        controller.attachKeyListener();
 
         // Create window frame with title at toolbar
         JFrame window = new JFrame("Project Shirayuki");

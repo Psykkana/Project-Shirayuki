@@ -113,6 +113,7 @@ public class startMenu extends JPanel {
                 frame.revalidate();     // update the layout of components
                 frame.repaint();       
                 playBGM("assets/tf_bgm.wav");   // Start playing the bgm
+                System.out.println("DEBUG: Loading into supermarket");
                 simulation.requestFocusInWindow();
             }
         });
@@ -157,7 +158,7 @@ public class startMenu extends JPanel {
             bgm.loop(bgm.LOOP_CONTINUOUSLY);
             bgm.start();
         } catch (Exception e) {
-            System.out.println("DEBUG: Error playing bgm:  " + e.getMessage());
+            System.out.println("DEBUG: Error playing audio (bgm):  " + e.getMessage());
         }
     }
 }

@@ -14,12 +14,16 @@ public class inputHandler implements KeyListener {
     // NOTE: NO NEED TO PUT KEYLISTENER IN UML
     
     // Load the board and player
-    private Board board;
-    private Player player;
+    private final Board board;
+    private final Player player;
 
     public inputHandler(Player player, Board board) {
         this.player = player;
         this.board = board;
+    }
+
+    // Added to avoid problem: Leaking this in constructor
+    public void attachKeyListener() {
         board.addKeyListener(this);
     }
 
