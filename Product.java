@@ -76,6 +76,11 @@ public abstract class Product {
         return discountEligible;
     }
 
+    public boolean isRestrictedUnderage() {
+        return restrictedUnderage;
+    }
+
+
     public void getIcon() {
     }
 

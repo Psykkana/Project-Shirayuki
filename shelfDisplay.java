@@ -79,7 +79,16 @@ public class shelfDisplay extends displayTile {
                 productButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
+                        //age checker
+                         if (p.isRestrictedUnderage() && player.getAge() < 18) {
+                            JOptionPane.showMessageDialog(
+                                frame,
+                                "You are too young to get this product.",
+                                "Age Restricted",
+                                JOptionPane.WARNING_MESSAGE                                                                                                    
+                            );
+                            return;
+                        }
                         boolean taken = player.pickUpProduct(p);
 
                         if (!taken) {
