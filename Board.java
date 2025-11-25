@@ -8,6 +8,7 @@ import javax.swing.*;       // Stuff like JPanel and timer
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import javax.sound.sampled.*;   // For background music
 
 /*
  *      The Board Class
@@ -17,6 +18,9 @@ import java.util.HashMap;
  */
 
 public class Board extends JPanel {
+
+    // Should've done this earlier, just change the string depending on what build ur on
+    private String currentVersion = "b0.7.4";
 
     // Size of each tile on the board (in pixels)
     public static final int TILE_SIZE = 35;
@@ -50,7 +54,7 @@ public class Board extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
 
-        loadImages();
+        loadImages();        
     }
 
     public void addObject(gameObject gObj) {
@@ -160,7 +164,7 @@ public class Board extends JPanel {
 
     private void drawText(Graphics g) {
         // Set text to be displayed
-        String text = "Project Shirayuki b0.7.3";
+        String text = "Project Shirayuki " + currentVersion;
 
         // Cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
@@ -190,6 +194,44 @@ public class Board extends JPanel {
         g2d.drawString(text, x, y);
     }
 
+    // Show a popup window with all the current controls
+    public void showControls() {
+        JFrame controlsWindow = new JFrame("Controls");
+
+        controlsWindow.setSize(400, 400);
+        controlsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);   // EXIT_ON_CLOSE kills the whole program
+        controlsWindow.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel controlsText = new JLabel(
+            "<html>" +
+            "<h2>USER CONTROLS</h2>" +
+            "<ul>" +
+            // List out all controls
+            "<li>W - Move Up</li>" + 
+            "<li>A - Move Left</li>" +            
+            "<li>S - Move Down</li>" +
+            "<li>D - Move Right</li>" +   
+            "<li>I - Look Up</li>" +            
+            "<li>J - Look Left</li>" +            
+            "<li>K - Look Down</li>" +
+            "<li>L - Look Right</li>" +
+            "<li>E - Interact with tile in front</li>" +            
+            "<li>V - View Inventory</li>" +
+            "<li>C - Show Controls (you're here)</li>" +  
+            "</ul>" +        
+            "</html>"
+        );
+
+        controlsText.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        panel.add(controlsText);
+        controlsWindow.add(panel);
+        controlsWindow.setVisible(true);
+    }
+ 
     // Shows a popup window with all chosen products and totals
     public void showChosenProductsView() {
         Player p = this.player;
@@ -270,7 +312,7 @@ public class Board extends JPanel {
         System.out.println("Exiting the simulation");
         System.exit(0);
     }
-
+    
         // Helper class for summarizing unique products
     private static class ProductSummary {
         String name;

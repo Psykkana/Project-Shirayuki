@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.JTextField;
 
 public class startMenu extends JPanel {
@@ -25,6 +26,8 @@ public class startMenu extends JPanel {
     private static final int buttonHeight = 50;
     private static final int frameWidth = Board.TILE_SIZE * Board.Y_AXIS_SIZE;    
     private static final int frameCenter = (frameWidth - buttonWidth) / 2;
+
+    private Clip bgm;
 
     public startMenu(JFrame frame, Board simulation) {
 
@@ -107,7 +110,8 @@ public class startMenu extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(simulation);
                 frame.revalidate();     // update the layout of components
-                frame.repaint();        
+                frame.repaint();       
+                playBGM("assets/tf_bgm.wav");   // Start playing the bgm
                 simulation.requestFocusInWindow();
             }
         });
@@ -144,4 +148,15 @@ public class startMenu extends JPanel {
         Toolkit.getDefaultToolkit().sync();
     }
 
+    private void playBGM(String location) {
+        try {
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(new File(location));
+            bgm = AudioSystem.getClip();
+            bgm.open (audioInput);
+            bgm.loop(bgm.LOOP_CONTINUOUSLY);
+            bgm.start();
+        } catch (Exception e) {
+            System.out.println("DEBUG: Error playing bgm " + e.getMessage());
+        }
+    }
 }

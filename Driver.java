@@ -1,3 +1,5 @@
+import java.awt.Image;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /*
@@ -47,8 +49,8 @@ class Driver {
         window.setVisible(true);    // Display the window
 
         // Set app icon
-        ImageIcon image = new ImageIcon("images/player.png");    // create image icon
-        window.setIconImage(image.getImage());    // change icon of frame
+        ImageIcon image = new ImageIcon(Driver.class.getResource("assets/app_icon.png"));
+        window.setIconImage(image.getImage());
 
     }
 

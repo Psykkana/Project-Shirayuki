@@ -83,7 +83,7 @@ public class checkoutStationTile extends displayTile {
             // Print per product category
             for (String productType : grouped.keySet()) {
 
-                writer.println(productType + "\t    Qty"); // print product name
+                writer.println(productType); // print product name
 
                 List<Product> list = grouped.get(productType);
 
