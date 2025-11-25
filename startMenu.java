@@ -111,10 +111,10 @@ public class startMenu extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(simulation);
                 frame.revalidate();     // update the layout of components
-                frame.repaint();       
-                playBGM("assets/tf_bgm.wav");   // Start playing the bgm
+                frame.repaint();  
                 System.out.println("DEBUG: Loading into supermarket");
-                simulation.requestFocusInWindow();
+                simulation.requestFocusInWindow();   
+                simulation.toggleBGM();        
             }
         });
 
@@ -148,17 +148,5 @@ public class startMenu extends JPanel {
 
         // Smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
-    }
-
-    private void playBGM(String location) {
-        try {
-            AudioInputStream audioInput = AudioSystem.getAudioInputStream(new File(location));
-            bgm = AudioSystem.getClip();
-            bgm.open (audioInput);
-            bgm.loop(bgm.LOOP_CONTINUOUSLY);
-            bgm.start();
-        } catch (Exception e) {
-            System.out.println("DEBUG: Error playing audio (bgm):  " + e.getMessage());
-        }
     }
 }

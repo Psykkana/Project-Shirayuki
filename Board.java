@@ -8,7 +8,6 @@ import javax.swing.*;       // Stuff like JPanel and timer
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import javax.sound.sampled.*;   // For background music
 
 /*
  *      The Board Class
@@ -20,7 +19,7 @@ import javax.sound.sampled.*;   // For background music
 public class Board extends JPanel {
 
     // Should've done this earlier, just change the string depending on what build ur on
-    private final String currentVersion = "b0.7.6";
+    private final String currentVersion = "b0.7.7";
 
     // Size of each tile on the board (in pixels)
     public static final int TILE_SIZE = 35;
@@ -36,6 +35,9 @@ public class Board extends JPanel {
 
     // Store arraylist of objects
     private final ArrayList<gameObject> objects;
+
+    // For the BGM
+    private audioControl bgm = new audioControl("assets/tf_bgm.wav");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -54,7 +56,8 @@ public class Board extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
 
-        loadImages();        
+        loadImages();      
+                 
     }
 
     public void addObject(gameObject gObj) {
@@ -124,7 +127,6 @@ public class Board extends JPanel {
             Point pos = player.getPos();
             playerChar = player.getCurrentSprite();;
             g.drawImage(playerChar, pos.x * TILE_SIZE, pos.y * TILE_SIZE, this);   // Draws the player character
-
         }
 
         drawText(g);           // Draws the text
@@ -194,6 +196,10 @@ public class Board extends JPanel {
         g2d.drawString(text, x, y);
     }
 
+    public void toggleBGM() {
+        bgm.toggle();
+    }
+
     // Show a popup window with all the current controls
     // Also the user info
     public void showControls() {
@@ -226,6 +232,7 @@ public class Board extends JPanel {
             "<li>E - Interact with tile in front</li>" +            
             "<li>V - View Inventory</li>" +
             "<li>C - Show Controls & User Info (you're here)</li>" +  
+            "<li>M - Mute Background Music</li>" +            
             "</ul>" +        
             "</html>"
         );

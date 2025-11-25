@@ -79,6 +79,12 @@ public class inputHandler implements KeyListener {
             case KeyEvent.VK_C:
                 board.showControls();
                 break;
+
+            // Mute the bgm
+            case KeyEvent.VK_M:
+                board.toggleBGM();
+                System.out.println("DEBUG: Toggling BGM");
+                break;
         }
         board.repaint();
     }   
