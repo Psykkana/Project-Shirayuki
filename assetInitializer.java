@@ -72,6 +72,18 @@ public class assetInitializer {
         board.addObject(new productSearchTile(8, 15, floorOne));
         board.addObject(new productSearchTile(13, 15, floorOne));
 
+        // Checkout Counters - Left Side
+        board.addObject(new checkoutStationTile(2, 18, floorOne));
+        board.addObject(new checkoutStationTile(4, 18, floorOne));
+        board.addObject(new checkoutStationTile(6, 18, floorOne));        
+        board.addObject(new checkoutStationTile(8, 18, floorOne));
+
+        // Checkout Counters - Right Side
+        board.addObject(new checkoutStationTile(13, 18, floorOne));
+        board.addObject(new checkoutStationTile(15, 18, floorOne));
+        board.addObject(new checkoutStationTile(17, 18, floorOne));        
+        board.addObject(new checkoutStationTile(19, 18, floorOne));
+
         // GROUND FLOOR AISLES (the products)
 
         createShelf(
