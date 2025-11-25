@@ -153,6 +153,7 @@ public class checkoutStationTile extends displayTile {
             return;
         }
 
+        // Check if user is eligible for discounts or not
         boolean discountEligible = player.getAge() >= 60;
 
         // Group by productType
@@ -170,27 +171,46 @@ public class checkoutStationTile extends displayTile {
 
             sum.quantity++; 
 
-            sum.totalPrice = (p.isDiscountEligible() && discountEligible) ? 
-                p.getDiscountedPrice() : p.getPrice();
+            if (p.isDiscountEligible() && discountEligible) {
+                sum.totalPrice += p.getDiscountedPrice();
+            } else {
+                sum.totalPrice += p.getPrice();
+            }
         }
 
         // Build table data
-        Object[][] rowData = new Object[summaryMap.size()][5];  // 4 columns of data
-        String[] columnNames = { "Product", "Quantity", "Unit Price", "Normal Price", "Discounted Price" };
+        Object[][] rowData;  
+        String[] columnNames;
+
+        // If user is eligible for discounts, show in table
+        if (discountEligible) {
+            columnNames = new String[] { "Product", "Quantity", "Unit Price", "Cost", "Per Unit Discount" };
+            rowData = new Object[summaryMap.size()][5];
+        } else {    // If not eligible, show without discount price
+            columnNames = new String[] { "Product", "Quantity", "Unit Price", "Cost"};
+            rowData = new Object[summaryMap.size()][4];
+        }
+
 
         int i = 0;
         for (ProductSummary sum : summaryMap.values()) {
+            double costBeforeDiscount = sum.unitPrice * sum.quantity;
+
             rowData[i][0] = sum.name;
             rowData[i][1] = sum.quantity;
             rowData[i][2] = String.format("%.2f", sum.unitPrice);
-            rowData[i][3] = String.format("%.2f", sum.unitPrice * sum.quantity);    // Normal total        
-            rowData[i][4] = String.format("%.2f", sum.totalPrice);                  // Discounted total
+            rowData[i][3] = String.format("%.2f", costBeforeDiscount);
+
+            if (discountEligible) {
+                rowData[i][4] = String.format("%.2f", sum.discountedUnitPrice);                  // Discounted total
+            }
             i++;
         }
         
         // Compute the overall total price
         double overallRunningTotal = 0.0;
         double overallDiscountedTotal = 0.0;
+
         for (ProductSummary sum : summaryMap.values()) {
             overallRunningTotal += sum.unitPrice * sum.quantity;
             overallDiscountedTotal += sum.totalPrice;
@@ -199,7 +219,8 @@ public class checkoutStationTile extends displayTile {
         // The Checkout GUI
         String displayTotalPrice;
         if (player.getAge() >= 60) {     // The discounted total
-            displayTotalPrice = String.format("RUNNING TOTAL (DISCOUNT APPLIED): %.2f PHP (From %.2f PHP)", overallDiscountedTotal, overallRunningTotal);
+            displayTotalPrice = String.format("RUNNING TOTAL (DISCOUNT APPLIED): %.2f PHP (From %.2f PHP)", 
+                                                overallDiscountedTotal, overallRunningTotal);
         } else {    // The regular total
             displayTotalPrice = String.format("RUNNING TOTAL: %.2f PHP", overallRunningTotal);
         }
