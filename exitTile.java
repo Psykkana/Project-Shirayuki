@@ -34,7 +34,7 @@ public class exitTile extends gameObject {
 
         if (exitChoice == JOptionPane.YES_OPTION) {
             // TODO: Check player equipment status
-
+            
             // TODO: Check if player paid for products
             
             board.endSimulation();            

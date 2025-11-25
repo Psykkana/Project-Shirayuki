@@ -207,7 +207,7 @@ public class Player {
     public ArrayList<Product> getHandProducts() {
         return handProducts;
     }
-
+    
     // Return every product the player is currently carrying
     public List<Product> getAllCarriedProducts() {
         List<Product> all = new ArrayList<>();
@@ -307,7 +307,7 @@ public class Player {
 
     /**
      * Removes a product the player is carrying.
-     * Used when returning items to displays.
+     * Used when returning items to displays (future step).
      */
     public boolean dropProduct(Product p) {
         if (equipment != null && equipment.getProducts().contains(p)) {
