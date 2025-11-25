@@ -1,40 +1,29 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.text.DateFormatter;
 
 /*
  *  The checkoutStationTile subclass
  */
 
 public class checkoutStationTile extends displayTile {
-    
-    private BufferedImage sprite;
 
     public checkoutStationTile(int posX, int posY, int floor) {
         super(posX, posY, floor, null, "Checkout Counter", 0);   // No capacity needed
-        loadSprite("assets/placeholder35x35.png");
+        loadSprite("assets/checkout_counter.png");
     }
 
     // Helper class for summarizing unique products

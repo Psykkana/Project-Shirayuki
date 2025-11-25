@@ -160,7 +160,7 @@ public class Board extends JPanel {
 
     private void drawText(Graphics g) {
         // Set text to be displayed
-        String text = "Project Shirayuki b0.6";
+        String text = "Project Shirayuki b0.8";
 
         // Cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
