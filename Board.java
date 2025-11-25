@@ -45,7 +45,7 @@ public class Board extends JPanel {
         setPreferredSize(new Dimension(TILE_SIZE * Y_AXIS_SIZE, TILE_SIZE * X_AXIS_SIZE));
 
         // Set board background color
-        setBackground(new Color(163, 246, 48));
+        setBackground(new Color(255, 255, 255));
 
         setFocusable(true);
         requestFocusInWindow();
@@ -144,7 +144,7 @@ public class Board extends JPanel {
 
     public void drawBackground(Graphics g) {
         // Draw a checkered background
-        g.setColor(new Color(218, 255, 169));
+        g.setColor(new Color(142, 224, 128));
 
         // Generate tiled grid
         for (int yAxis = 0; yAxis < Y_AXIS_SIZE; yAxis++) {
@@ -160,7 +160,7 @@ public class Board extends JPanel {
 
     private void drawText(Graphics g) {
         // Set text to be displayed
-        String text = "Project Shirayuki b0.8";
+        String text = "Project Shirayuki b0.7.3";
 
         // Cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
