@@ -20,7 +20,7 @@ Current features:
 6. Movement with keyboard input (W, A, S, D)
 7. User direction with keyboard input (I, J, K, L) and visual representation
 8. Amenity interaction with E (opens new windows that are click-based)
-9. Background music once you get past the start menu
+9. Background music, once you get past the start menu (Toggle with M)
 10. A controls tab (press C to show)
 11. Background drawing system
 12. Smooth Rendering / Animation Sync
