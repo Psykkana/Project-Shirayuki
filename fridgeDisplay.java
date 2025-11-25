@@ -167,6 +167,10 @@ public class fridgeDisplay extends displayTile {
         frame.setVisible(true);
     }
 
+    public ArrayList<Product> getProducts() { //for product search
+        return products;
+    }
+
     private boolean canBeOnFridge(Product p) {
         String prefix = p.getSerialID().substring(0, 3);
         return prefix.equals("MLK") || prefix.equals("FRZ") || prefix.equals("CHS");

@@ -68,11 +68,12 @@ public class assetInitializer {
         board.addObject(new wallTile(10, 18, floorOne));
         board.addObject(new wallTile(11, 18, floorOne));
 
-        // GROUND FLOOR AISLES
+        //Product Searches on 1st floor
+        board.addObject(new productSearchTile(8, 15, floorOne));
+        board.addObject(new productSearchTile(13, 15, floorOne));
 
-        // Aisle 1 – Canned Goods ONLY (Shelf)
+        // GROUND FLOOR AISLES (the products)
 
-        // Row 4
         createShelf(
             board,
             18, 4,
@@ -1592,18 +1593,11 @@ public class assetInitializer {
         board.addObject(new wallTile(17, 16, floorTwo));
         board.addObject(new wallTile(17, 17, floorTwo)); 
 
-        // =======================
+        //Product search for Second floor
+
+        board.addObject(new productSearchTile(1, 20, floorTwo));
+        board.addObject(new productSearchTile(20, 20, floorTwo));
         // SECOND FLOOR AISLES
-        // =======================
-
-        // -----------------------
-        // TOP ROW: y = 4..7
-        // -----------------------
-
-        // x18–19: Home Essentials (Shelf)
-        // Tiles: (18,4..7), (19,4..7)
-
-        // Row 4
         createShelf(
             board,
             18, 4,

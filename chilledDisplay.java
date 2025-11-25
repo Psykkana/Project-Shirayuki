@@ -166,6 +166,10 @@ public class chilledDisplay extends displayTile {
         frame.setVisible(true);
     }
 
+    public ArrayList<Product> getProducts() { //for product search
+        return products;
+    }
+
     private boolean canBeOnChilled(Product p) {
         String prefix = p.getSerialID().substring(0, 3);
         return prefix.equals("CHK") || prefix.equals("BEF") || prefix.equals("SEA");

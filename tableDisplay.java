@@ -200,6 +200,11 @@ public class tableDisplay extends displayTile {
         frame.setVisible(true);
     }
 
+    public ArrayList<Product> getProducts() { //for product search
+        return products;
+    }
+
+
     // Only allow certain product types on tables (per specs)
     // Fruit, Vegetable, Bread, Eggs => FRU, VEG, BRD, EGG
     private boolean canBeOnTable(Product p) {

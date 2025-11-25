@@ -179,6 +179,10 @@ public class shelfDisplay extends displayTile {
         frame.setVisible(true);
     }
 
+    public ArrayList<Product> getProducts() { //for product search
+        return products;
+    }
+
     // Filter: only products that are only meant for shelves can be here so u cant return others(prefixes)
     private boolean canBeOnShelf(Product p) {
         String prefix = p.getSerialID().substring(0, 3);
