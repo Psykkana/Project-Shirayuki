@@ -195,8 +195,9 @@ public class Board extends JPanel {
     }
 
     // Show a popup window with all the current controls
+    // Also the user info
     public void showControls() {
-        JFrame controlsWindow = new JFrame("Controls");
+        JFrame controlsWindow = new JFrame("Help");
 
         controlsWindow.setSize(400, 400);
         controlsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);   // EXIT_ON_CLOSE kills the whole program
@@ -208,6 +209,9 @@ public class Board extends JPanel {
 
         JLabel controlsText = new JLabel(
             "<html>" +
+            "<h2>USER INFO</h2>" + 
+            "<p>Name: " + player.getName() +
+            "<br>Age: " + player.getAge() + "</p>" +       
             "<h2>USER CONTROLS</h2>" +
             "<ul>" +
             // List out all controls
@@ -221,7 +225,7 @@ public class Board extends JPanel {
             "<li>L - Look Right</li>" +
             "<li>E - Interact with tile in front</li>" +            
             "<li>V - View Inventory</li>" +
-            "<li>C - Show Controls (you're here)</li>" +  
+            "<li>C - Show Controls & User Info (you're here)</li>" +  
             "</ul>" +        
             "</html>"
         );

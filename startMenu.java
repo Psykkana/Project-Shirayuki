@@ -27,6 +27,7 @@ public class startMenu extends JPanel {
     private static final int frameWidth = Board.TILE_SIZE * Board.Y_AXIS_SIZE;    
     private static final int frameCenter = (frameWidth - buttonWidth) / 2;
 
+    // Audio 
     private Clip bgm;
 
     public startMenu(JFrame frame, Board simulation) {
@@ -156,7 +157,7 @@ public class startMenu extends JPanel {
             bgm.loop(bgm.LOOP_CONTINUOUSLY);
             bgm.start();
         } catch (Exception e) {
-            System.out.println("DEBUG: Error playing bgm " + e.getMessage());
+            System.out.println("DEBUG: Error playing bgm:  " + e.getMessage());
         }
     }
 }
