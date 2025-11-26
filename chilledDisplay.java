@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -34,6 +35,23 @@ public class chilledDisplay extends displayTile {
             products.add(p);
         }
     }
+
+    // Each image will be named 'serialID' + .png
+    private ImageIcon getProductImage(Product p) {
+        String productPrefix = p.getSerialID().substring(0, 3);
+        String location = "assets/products/" + productPrefix + ".png";
+
+        File file = new File(location);
+
+        if (!file.exists()) {
+                        System.out.println("DEBUG: Couldn't find " + productPrefix + ".png, switching to placeholder");
+            ImageIcon placeholder = new ImageIcon("assets/products/placeholder100x100.png");
+            return new ImageIcon(placeholder.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH));
+        } else {
+            ImageIcon icon = new ImageIcon(location);            
+            return new ImageIcon(icon.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH));            
+        }
+    } 
 
     @Override
     public void onInteract(Player player, Board board) {
@@ -66,10 +84,7 @@ public class chilledDisplay extends displayTile {
             if (i < products.size()) {
                 final Product p = products.get(i);
 
-                ImageIcon icon = new ImageIcon("assets/placeholder100x100.png");
-                icon = new ImageIcon(
-                    icon.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH)
-                );
+                ImageIcon icon = getProductImage(p);
 
                 productButton = new JButton(p.getProductType(), icon);
                 // b 0.7.9 - Add product name below the button icon
