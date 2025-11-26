@@ -39,7 +39,7 @@ public class stairTile extends gameObject {
         board.changeFloor(targetFloor);
         
         // Debug
-        System.out.println("Stepped on stairs. Player floor: " 
+        System.out.println("DEBUG: Stepped on stairs. Player floor: " 
                             + player.getCurrentFloor() + 
                             ", Board floor: " + board.getCurrentfloor());
     }

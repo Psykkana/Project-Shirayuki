@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,9 +19,14 @@ import javax.swing.SwingConstants;
 
 /*
  *  The checkoutStationTile subclass
+ *      Extends displayTile, press E to interact
+ *      Lets user checkout items in their inventory
+ * 
  */
 
 public class checkoutStationTile extends displayTile {
+
+    private Random rand = new Random();
 
     public checkoutStationTile(int posX, int posY, int floor) {
         super(posX, posY, floor, null, "Checkout Counter", 0);   // No capacity needed
@@ -43,6 +50,28 @@ public class checkoutStationTile extends displayTile {
         }
     }
 
+    // Randomly select between list of names to put in the cashier part of receipt
+    private String generateEmployeeName() {
+        List<String> names = new ArrayList<>();
+        names.add("Shizuko Konoe");
+        names.add("Shinshuu Maru");
+        names.add("Hisamichi Kongo");
+        names.add("Souya Maru");
+        names.add("Joe Biden");
+        names.add("William Halsey");
+        names.add("James Thompson");
+        names.add("Hiroshi Saito");                
+        names.add("Ishikawa Hanako");
+        names.add("Haida Smith");        
+
+        // Shuffle the names around
+        Collections.shuffle(names);
+
+        // Random int between 0 and 9 (10 total names available)
+        return names.get(rand.nextInt(9));
+    }
+
+    // Print out the receipt and remove the products from user's inventory
     private void processCheckout(Player player, List<Product> productsToCheckout, double runningTotal, double discountedTotal) {
 
         // Date and Time (month, day, year hour, minute)
@@ -61,6 +90,7 @@ public class checkoutStationTile extends displayTile {
             writer.println("************************ SALES  INVOICE ************************");                    
             writer.println("================================================================");
             writer.println("Transaction time & date: " + formattedDateTime);
+            writer.println("Cashier: " + generateEmployeeName());
             writer.println("Customer: " + player.getName());
             writer.println("Age: " + player.getAge());
             writer.println("----------------------------------------------------------------");
@@ -106,8 +136,9 @@ public class checkoutStationTile extends displayTile {
             writer.printf("DISCOUNTED TOTAL %.2f PHP%n", discountedTotal);
             writer.printf("SAVINGS %.2f PHP%n", (runningTotal - discountedTotal));
             writer.println("================================================================");
+            writer.println("Thank you for shopping with us!");
 
-            System.out.println("DEBUG: Printed receipt successfully");
+            System.out.println("DEBUG: Printed receipt successfully (" + outputName + ")");
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Failed to write receipt: " + e.getMessage(),
