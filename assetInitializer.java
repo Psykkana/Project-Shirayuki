@@ -2903,6 +2903,10 @@ public class assetInitializer {
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
             ProductFactory.createMilk()
         );
 
@@ -2912,6 +2916,10 @@ public class assetInitializer {
             floorTwo,
             "2F - Milk",
             2,
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
@@ -2929,6 +2937,10 @@ public class assetInitializer {
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
             ProductFactory.createMilk()
         );
 
@@ -2938,6 +2950,10 @@ public class assetInitializer {
             floorTwo,
             "2F - Milk",
             4,
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
+            ProductFactory.createMilk(),
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
             ProductFactory.createMilk(),
@@ -2955,6 +2971,10 @@ public class assetInitializer {
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood()
         );
 
@@ -2964,6 +2984,10 @@ public class assetInitializer {
             floorTwo,
             "2F - Frozen Food",
             2,
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
@@ -2981,6 +3005,10 @@ public class assetInitializer {
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood()
         );
 
@@ -2994,18 +3022,25 @@ public class assetInitializer {
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
+            ProductFactory.createFrozenFood(),
             ProductFactory.createFrozenFood()
         );
 
-        // -------------------------
-        // Cheese – Refrigerators (x 15..18, y = 1)
-        // -------------------------
+        // Cheese – Refrigerators 
+
         createFridge(
             board,
             15, 1,
             floorTwo,
             "2F - Cheese",
             1,
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
@@ -3023,6 +3058,10 @@ public class assetInitializer {
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
             ProductFactory.createCheese()
         );
 
@@ -3036,6 +3075,10 @@ public class assetInitializer {
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
             ProductFactory.createCheese()
         );
 
@@ -3045,6 +3088,10 @@ public class assetInitializer {
             floorTwo,
             "2F - Cheese",
             4,
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
+            ProductFactory.createCheese(),
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
             ProductFactory.createCheese(),
