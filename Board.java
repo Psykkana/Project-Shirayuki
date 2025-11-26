@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class Board extends JPanel {
 
     // Should've done this earlier, just change the string depending on what build ur on
-    private final String currentVersion = "b0.8.0";
+    private final String currentVersion = "b0.8.1";
 
     // Size of each tile on the board (in pixels)
     public static final int TILE_SIZE = 35;
@@ -95,16 +95,6 @@ public class Board extends JPanel {
         }
     }    
 
-    // For non-solid tile checking
-    public gameObject getTileObject(int posX, int posY, int floor) {
-        for (gameObject obj : objects) {
-            if (obj.getPosX() == posX && obj.getPosY() == posY && obj.getFloor() == floor) {
-                return obj;
-            }
-        }
-        return null;
-    }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -148,7 +138,7 @@ public class Board extends JPanel {
         drawText(g);
     }
 
-    public void drawBackground(Graphics g) {
+    private void drawBackground(Graphics g) {
         // Draw a checkered background
         g.setColor(new Color(142, 224, 128));
 

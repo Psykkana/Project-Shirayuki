@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 
 /*
@@ -41,8 +40,8 @@ public class Player {
     private int currentFloor = 1;   // Starts on 1st floor
 
     // Constant location for Spawn
-    public static final int spawnX = 11;
-    public static final int spawnY = 21;
+    private static final int spawnX = 11;
+    private static final int spawnY = 21;
 
     // Actual user inputted data
     private String name;
