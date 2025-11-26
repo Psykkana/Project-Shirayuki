@@ -9,7 +9,7 @@
   	</ul>
 </div>
 
-Current build: build 0.7.8
+Current build: build 0.8.0
 
 Current features:
 1. Basic GUI (With Swing and associated assets)
@@ -20,11 +20,12 @@ Current features:
 6. Movement with keyboard input (W, A, S, D)
 7. User direction with keyboard input (I, J, K, L) and visual representation
 8. Amenity interaction with E (opens new windows that are click-based)
-9. Receipt printing upon checkout (includes total price, product serialID, etc.)
-10. Background music, once you get past the start menu (Toggle with M)
-11. A controls tab (press C to show)
-12. Background drawing system
-13. Smooth Rendering / Animation Sync
+9. Image assets for each product type (based on serial ID)
+10. Receipt printing upon checkout (includes total price, product serialID, etc.)
+11. Background music, once you get past the start menu (Toggle with M)
+12. A controls tab (press C to show)
+13. Background drawing system
+14. Smooth Rendering / Animation Sync
    
 ---
 
@@ -33,6 +34,7 @@ Current features:
 <p>Successor to [Project-Gotland](https://github.com/Psykkana/Project-Gotland)</p>
 <p>Initially built off of code from https://github.com/learncodebygaming/java_2d_game</p>
 <p>Makes use of Swing, JFrame, and associated libraries to create a GUI-based system</p>
+<p>Assets not made by us belong to their respective creators and rights holders</p>
 
 ---
 
