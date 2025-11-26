@@ -46,7 +46,7 @@ public class chilledDisplay extends displayTile {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10, 10));
         mainPanel.setBackground(new Color(220, 220, 220));
-        mainPanel.setPreferredSize(new Dimension(350, 220));
+        mainPanel.setPreferredSize(new Dimension(490, 220));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20 ,20));
 
         JLabel mainTitle = new JLabel("Chilled Counter (" + address + ")", JLabel.CENTER);
@@ -71,7 +71,10 @@ public class chilledDisplay extends displayTile {
                     icon.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH)
                 );
 
-                productButton = new JButton(icon);
+                productButton = new JButton(p.getProductType(), icon);
+                // b 0.7.9 - Add product name below the button icon
+                productButton.setHorizontalTextPosition(JButton.CENTER);
+                productButton.setVerticalTextPosition(JButton.BOTTOM);               
                 productButton.setPreferredSize(new Dimension(80, 80));
                 productButton.setFocusable(false);
 

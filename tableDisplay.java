@@ -56,7 +56,7 @@ public class tableDisplay extends displayTile {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10, 10));
         mainPanel.setBackground(new Color(220, 220, 220));
-        mainPanel.setPreferredSize(new Dimension(300, 300));        
+        mainPanel.setPreferredSize(new Dimension(350, 350));        
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20 ,20));
     
         // Title text (address)
@@ -84,7 +84,10 @@ public class tableDisplay extends displayTile {
                     icon.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)
                 );
                 
-                productButton = new JButton(icon);
+                productButton = new JButton(p.getProductType(), icon);
+                // b 0.7.9 - Add product name below the button icon
+                productButton.setHorizontalTextPosition(JButton.CENTER);
+                productButton.setVerticalTextPosition(JButton.BOTTOM);
                 productButton.setPreferredSize(new Dimension(100, 100));
                 productButton.setFocusable(false);
 

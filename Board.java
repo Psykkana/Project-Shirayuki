@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class Board extends JPanel {
 
     // Should've done this earlier, just change the string depending on what build ur on
-    private final String currentVersion = "b0.7.8";
+    private final String currentVersion = "b0.7.9";
 
     // Size of each tile on the board (in pixels)
     public static final int TILE_SIZE = 35;
